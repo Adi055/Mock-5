@@ -5,7 +5,7 @@ const { BlackModel } = require("../Model/blackModel");
 
 const empRouter=express.Router();
 
-empRouter.post("/employees",async(req,res)=>{
+empRouter.post("/employees",auth,async(req,res)=>{
 try {
     const emp=new EmpModel(req.body)
     await emp.save()
@@ -15,7 +15,7 @@ try {
 }
 })
 
-empRouter.get("/",async(req,res)=>{
+empRouter.get("/",auth,async(req,res)=>{
 
 
 
@@ -41,7 +41,7 @@ empRouter.get("/",async(req,res)=>{
     })
 
 
-    empRouter.patch("/update/:id",async(req,res)=>{
+    empRouter.patch("/update/:id",auth,async(req,res)=>{
         const {id}=req.params;
         const emp=await EmpModel.findOne({_id:id})
         try {
@@ -58,7 +58,7 @@ empRouter.get("/",async(req,res)=>{
         }
     })
 
-empRouter.delete("/delete/:id",async(req,res)=>{
+empRouter.delete("/delete/:id",auth,async(req,res)=>{
     const {id}=req.params;
     const emp=await EmpModel.findOne({_id:id})
     try {
